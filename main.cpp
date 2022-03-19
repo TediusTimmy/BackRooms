@@ -140,10 +140,13 @@ public:
                pge->Draw(vScreenSize.x - 64 + x - tx + 32, y - ty + 32, olc::Pixel(0, 0, 255));
             else
              {
-               if (getMapTile(x, y, zone.z) == '#')
+               char tile = getMapTile(x, y, zone.z);
+               if ('#' == tile)
                   pge->Draw(vScreenSize.x - 64 + x - tx + 32, y - ty + 32, olc::Pixel(0, 0, 0));
-               else
+               else if (' ' == tile)
                   pge->Draw(vScreenSize.x - 64 + x - tx + 32, y - ty + 32, olc::Pixel(255, 255, 255));
+               else
+                  pge->Draw(vScreenSize.x - 64 + x - tx + 32, y - ty + 32, olc::Pixel(0, 255, 0));
              }
           }
     }
