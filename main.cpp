@@ -361,23 +361,25 @@ public:
 		// Handle User Input =================================================
 		auto& player = pGame->mapObjects[0];
 
-		if (GetKey(olc::Key::A).bHeld) // Turn Left
+		if (GetKey(olc::Key::A).bHeld || (GetKey(olc::Key::LEFT).bHeld && !GetKey(olc::Key::SPACE).bHeld)) // Turn Left
 			player->Turn(-fPlayerMoveSpeed * 0.1f * fElapsedTime);
 		
-		if (GetKey(olc::Key::D).bHeld) // Turn Right
+		if (GetKey(olc::Key::D).bHeld || (GetKey(olc::Key::RIGHT).bHeld && !GetKey(olc::Key::SPACE).bHeld)) // Turn Right
 			player->Turn(+fPlayerMoveSpeed * 0.1f * fElapsedTime);
 
 		// Reset speed and velocity so player doesnt move if keys are not pressed
 		player->Stop();
 
 		// Walk Forward
-		if (GetKey(olc::Key::W).bHeld) player->Walk(+fPlayerMoveSpeed);
+		if (GetKey(olc::Key::W).bHeld || GetKey(olc::Key::UP).bHeld) player->Walk(+fPlayerMoveSpeed);
 		// Walk Backwards
-		if (GetKey(olc::Key::S).bHeld) player->Walk(-fPlayerMoveSpeed);
+		if (GetKey(olc::Key::S).bHeld || GetKey(olc::Key::DOWN).bHeld) player->Walk(-fPlayerMoveSpeed);
 		// Strafe Right
-		if (GetKey(olc::Key::E).bHeld) player->Strafe(+fPlayerMoveSpeed);
+		if (GetKey(olc::Key::E).bHeld || (GetKey(olc::Key::RIGHT).bHeld && GetKey(olc::Key::SPACE).bHeld)) player->Strafe(+fPlayerMoveSpeed);
 		// Strafe Left
-		if (GetKey(olc::Key::Q).bHeld) player->Strafe(-fPlayerMoveSpeed);
+		if (GetKey(olc::Key::Q).bHeld || (GetKey(olc::Key::LEFT).bHeld && GetKey(olc::Key::SPACE).bHeld)) player->Strafe(-fPlayerMoveSpeed);
+
+		if (GetKey(olc::Key::I).bHeld && GetKey(olc::Key::L).bHeld && GetKey(olc::Key::M).bHeld) player->path = Path(0);
 
 		// Update & Render World ==================================================
 
